@@ -73,6 +73,10 @@ const cartReducer = (state, action) => {
     };
   }
 
+  if (action.type === "CLEARCART") {
+    return defaultCartState;
+  }
+
   return defaultCartState;
 };
 
@@ -96,12 +100,19 @@ const CartProvider = (props) => {
     });
   };
 
+  const clearCartHandler = () => {
+    dispatchCartAction({
+      type: "CLEARCART",
+    });
+  };
+
   // Jag antar att denna är låst till formatet enligt contextfilen?
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    clearCart: clearCartHandler,
   };
 
   return (
